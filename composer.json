@@ -1,0 +1,17 @@
+{
+    "name": "admn/ticketing-system",
+    "autoload": {
+        "psr-4": {
+            "Admn\\TicketingSystem\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "wilfrednyaribo",
+            "email": "42717255+wilfrednyaribo@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "phpoffice/phpspreadsheet": "^4.3"
+    }
+}

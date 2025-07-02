@@ -54,8 +54,8 @@
 
         <!-- Buttons Section -->
         <div class="col-lg-12 text-center">
-          <button type="submit" class="btn btn-primary">Save</button>
-          <button type="reset" class="btn btn-secondary">Clear</button>
+          <button type="submit" class="btn btn-primary">Add Client</button>
+          <button type="reset" class="btn btn-secondary">Clear Details</button>
         </div>
       </form>
     </div>

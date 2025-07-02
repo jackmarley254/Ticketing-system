@@ -53,10 +53,15 @@ if (!isset($conn)) {
 
                 <hr>
                 <div class="col-lg-12 text-right justify-content-center d-flex">
-                    <button class="btn btn-primary mr-2" type="submit">Save</button>
-                    <button class="btn btn-secondary" type="reset">Clear</button>
+                    <button class="btn btn-primary mr-2" type="submit">Submit Your Ticket</button>
+                    <button class="btn btn-secondary" type="reset">Clear Your Ticket</button>
                 </div>
             </form>
+        <audio id="ticket-sound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto"></audio>
+
+
+
+
         </div>
     </div>
 </div>
@@ -94,8 +99,14 @@ if (!isset($conn)) {
                 success: function (resp) {
                     end_load();
                     if (resp == 1) {
-                        alert_toast('Data successfully saved.', "success");
-                        setTimeout(() => location.replace('index.php?page=ticket_list'), 500);
+                        // Play the sound
+                        document.getElementById('ticket-sound').play();
+
+                        // Show visual toast notification
+                        alert_toast('New ticket has been raised successfully!', "success");
+
+                        // Redirect after short delay
+                        setTimeout(() => location.replace('index.php?page=ticket_list'), 1500);
                     } else {
                         alert_toast('Failed to save. Please try again.', "danger");
                     }
@@ -108,3 +119,4 @@ if (!isset($conn)) {
         });
     });
 </script>
+

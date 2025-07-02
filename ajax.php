@@ -81,25 +81,66 @@ switch ($action) {
         echo $crud->update_ticket();
         break;
 
-    case 'save_comment':
-        if (
-            isset($_POST['ticket_id'], $_POST['comment']) &&
-            !empty($_POST['ticket_id']) &&
-            !empty($_POST['comment']) &&
-            isset($_SESSION['login_id'], $_SESSION['login_type'])
-        ) {
-            $ticket_id = intval($_POST['ticket_id']);
-            $user_id = intval($_SESSION['login_id']);
-            $user_type = intval($_SESSION['login_type']);
-            $comment = htmlspecialchars($_POST['comment'], ENT_QUOTES);
+   case 'save_comment':
+    if (
+        isset($_POST['ticket_id'], $_POST['comment']) &&
+        !empty($_POST['ticket_id']) &&
+        !empty($_POST['comment']) &&
+        isset($_SESSION['login_id'], $_SESSION['login_type'])
+    ) {
+        $ticket_id = intval($_POST['ticket_id']);
+        $user_id = intval($_SESSION['login_id']);
+        $user_type = intval($_SESSION['login_type']);
+        $comment = htmlspecialchars($_POST['comment'], ENT_QUOTES);
 
-            $stmt = $conn->prepare("INSERT INTO comments (id, user_id, user_type, comment, date_created) VALUES (?, ?, ?, ?, NOW())");
-            $stmt->bind_param("iiis", $ticket_id, $user_id, $user_type, $comment);
-            echo $stmt->execute() ? 1 : 0;
-        } else {
-            echo 0; // Missing required fields
+        $stmt = $conn->prepare("INSERT INTO comments (ticket_id, user_id, user_type, comment, date_created) VALUES (?, ?, ?, ?, NOW())");
+        $stmt->bind_param("iiis", $ticket_id, $user_id, $user_type, $comment);
+        echo $stmt->execute() ? 1 : 0;
+    } else {
+        echo 0;
+    }
+    break;
+
+    case 'load_comments':
+    $ticket_id = intval($_GET['id'] ?? 0);
+    if ($ticket_id <= 0) {
+        echo 'Invalid Ticket ID';
+        exit;
+    }
+
+    $comments = $conn->query("SELECT * FROM comments WHERE ticket_id = $ticket_id ORDER BY date_created DESC");
+
+    while ($row = $comments->fetch_assoc()) {
+        $user_id = $row['user_id'];
+        $user_type = $row['user_type'];
+        $username = 'Unknown User';
+
+        if ($user_type == 1) { // admin
+            $u = $conn->query("SELECT name FROM users WHERE id = $user_id");
+            if ($u && $u->num_rows > 0) {
+                $username = $u->fetch_assoc()['name'];
+            }
+        } elseif ($user_type == 2) { // staff
+            $u = $conn->query("SELECT CONCAT(firstname, ' ', lastname) AS name FROM staff WHERE id = $user_id");
+            if ($u && $u->num_rows > 0) {
+                $username = $u->fetch_assoc()['name'];
+            }
+        } elseif ($user_type == 3) { // customer
+            $u = $conn->query("SELECT CONCAT(firstname, ' ', lastname) AS name FROM customers WHERE id = $user_id");
+            if ($u && $u->num_rows > 0) {
+                $username = $u->fetch_assoc()['name'];
+            }
         }
-        break;
+
+        echo '<div class="comment" style="margin-bottom:10px;">';
+        echo '<strong>' . htmlspecialchars($username) . '</strong> ';
+        echo '<small style="color:gray;">(' . $row['date_created'] . ')</small>';
+        echo '<p>' . nl2br(htmlspecialchars($row['comment'])) . '</p>';
+        echo '</div>';
+    }
+    break;
+
+
 
     case 'delete_comment':
         echo $crud->delete_comment();
