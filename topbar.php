@@ -6,7 +6,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li>
-        <a class="nav-link text-white"  href="./" role="button"> <large><b>ICT Ticketting Support System</b></large></a>
+        <a class="nav-link text-white"  href="./" role="button"> <large><b>ICT Ticketing Support System</b></large></a>
       </li>
     </ul>
 

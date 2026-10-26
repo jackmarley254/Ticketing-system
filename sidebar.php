@@ -28,7 +28,7 @@
               <a href="#" class="nav-link nav-edit_customer">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Clients
+                  Staff
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
@@ -36,7 +36,7 @@
                 <li class="nav-item">
                   <a href="./index.php?page=new_customer" class="nav-link nav-new_customer tree-item">
                     <i class="fas fa-angle-right nav-icon"></i>
-                    <p>Add New Client</p>
+                    <p>Add New Staff</p>
                   </a>
 
 
@@ -45,7 +45,7 @@
                 <li class="nav-item">
                   <a href="./index.php?page=customer_list" class="nav-link nav-customer_list tree-item">
                     <i class="fas fa-angle-right nav-icon"></i>
-                    <p>List</p>
+                    <p>All Staff</p>
                   </a>
                 </li>
               </ul>
@@ -54,7 +54,7 @@
               <a href="#" class="nav-link nav-edit_staff">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
-                  Staff
+                  Technical Staff
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
@@ -62,13 +62,13 @@
                 <li class="nav-item">
                   <a href="./index.php?page=new_staff" class="nav-link nav-new_staff tree-item">
                     <i class="fas fa-angle-right nav-icon"></i>
-                    <p>Add New Staff</p>
+                    <p>Add New Technical Staff</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="./index.php?page=staff_list" class="nav-link nav-staff_list tree-item">
                     <i class="fas fa-angle-right nav-icon"></i>
-                    <p>List</p>
+                    <p>All Technical Staff</p>
                   </a>
                 </li>
               </ul>
@@ -121,7 +121,7 @@
             <li class="nav-item">
               <a href="./index.php?page=resources" class="nav-link nav-resources">
                 <i class="nav-icon fas fa-folder-open"></i>
-                <p>Resources</p>
+                <p>Resource Center</p>
               </a>
             </li>
             <li class="nav-item">

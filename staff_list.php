@@ -5,15 +5,10 @@
 <div class="col-lg-12">
   <div class="card border-light shadow-sm">
     <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
-        <button class="btn btn-sm btn-outline-primary" onclick="printTable()">
-    <i class="fas fa-print me-1"></i> Print List
-  </button>
+      <button class="btn btn-sm btn-outline-primary" onclick="printTable()">
+        <i class="fas fa-print me-1"></i> Print Technical Staff List
+      </button>
       <h5 class="mb-0 text-primary"></h5>
-      <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-left">
-  <!-- <h5 class="mb-0 text-primary">Staff Members</h5> -->
-  
-</div>
-
     </div>
     <div class="card-body">
       <div id="printableArea">
@@ -43,12 +38,19 @@
                 <td><?php echo ucwords($row['office']) ?></td>
                 <td><?php echo $row['email'] ?></td>
                 <td class="text-center">
-                  <a href="./index.php?page=edit_staff&id=<?php echo $row['id'] ?>" class="btn btn-sm btn-outline-primary me-1" title="Edit">
-                    <i class="fas fa-edit"></i>
-                  </a>
-                  <button class="btn btn-sm btn-outline-danger delete_staff" data-id="<?php echo $row['id'] ?>" title="Delete">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
+                  <div class="d-flex justify-content-center gap-1">
+                    <button class="btn btn-sm btn-outline-primary edit_staff" 
+                            data-id="<?php echo $row['id'] ?>" 
+                            data-name="<?php echo ucwords($row['name']) ?>" 
+                            title="Edit">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger delete_staff" 
+                            data-id="<?php echo $row['id'] ?>" 
+                            title="Delete">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
                 </td>
               </tr>
               <?php endwhile; ?>
@@ -60,7 +62,6 @@
   </div>
 </div>
 
-</div>
 <script>
 function printTable() {
     var printableContent = document.getElementById('printableArea').cloneNode(true);
@@ -74,7 +75,7 @@ function printTable() {
     newWin.document.write(`
         <html>
         <head>
-            <title>Staff List</title>
+            <title>Technical Staff List</title>
             <style>
                 body {
                     margin: 40px;
@@ -102,7 +103,7 @@ function printTable() {
         </head>
         <body>
             <center><h2>ICT UNIT</h2></center>
-            <h2>Staff List</h2>
+            <h2>Technical Staff List</h2>
             ${printableContent.innerHTML}
         </body>
         </html>
@@ -114,8 +115,29 @@ function printTable() {
     newWin.close();
 }
 
-$('.delete_staff').click(function(){
-    var id = $(this).attr('data-id');
+// Handle edit button with confirmation
+$(document).on('click', '.edit_staff', function(){
+    var id = $(this).data('id');
+    var name = $(this).data('name');
+
+    Swal.fire({
+        title: `Edit details for ${name}?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Edit',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#aaa'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `./index.php?page=edit_staff&id=${id}`;
+        }
+    });
+});
+
+// Handle delete button
+$(document).on('click', '.delete_staff', function(){
+    var id = $(this).data('id');
     var row = $(this).closest('tr');
 
     Swal.fire({
