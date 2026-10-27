@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home2/spellmar/icta.ticketing.skytechdevelopers.co.ke
-    - /bin/rsync -av --exclude='.git' --exclude='.cpanel.yml' ./ $DEPLOYPATH/
+    - /bin/cp -a ./. $DEPLOYPATH/
