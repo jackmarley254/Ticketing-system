@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home2/spellmar/icta.ticketing.skytechdevelopers.co.ke
+    - /bin/rsync -av --exclude='.git' ./ $DEPLOYPATH
